@@ -1,0 +1,18 @@
+$custom-pink: #ff4081;
+
+::ng-deep .custom-frame {
+    & .mat-checkbox-background, .mat-checkbox-frame {
+      border-radius: 70% !important;
+    }
+  }
+  .bold{
+   font-weight: bold;
+  
+  }
+  .small-fab {
+    width: 40px; 
+    height: 40px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

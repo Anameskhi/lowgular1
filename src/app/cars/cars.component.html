@@ -1,0 +1,40 @@
+<h1 class="bold">Car Form</h1>
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Model</mat-label>
+      <input matInput value="">
+    </mat-form-field><br>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="">
+    </mat-form-field><br>
+
+    <mat-form-field>
+        <mat-label>Brand ID</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let carBrand of getCarsBrand$ | async" [value]="carBrand.name">
+                {{ carBrand.name }}
+            </mat-option>
+        </mat-select>
+      </mat-form-field><br>
+
+      <div *ngFor="let securityFeature of carSecurityFeatures; let i = index">
+        <p>Security Features</p>
+        <mat-checkbox class="custom-frame" *ngFor="let carSecurity of getCarSecurityFeatures$ | async" [value]="carSecurity.name" >{{carSecurity.name}}</mat-checkbox>
+      </div><br><br>
+
+      <button mat-fab color="accent" class="small-fab" (click)="addCheckbox()">
+        <mat-icon>add</mat-icon>
+      </button><br>
+
+      <p>Comfort Features</p>
+      <mat-checkbox *ngFor="let carComfort of getCarComfortFeatures$ | async" [value]="carComfort.name" >{{carComfort.name}}</mat-checkbox><br><br>
+      
+      <button mat-raised-button color="primary">Submit</button>
+
+
+
+
+  </form>
+  
