@@ -1,3 +1,4 @@
+import { NgToastModule } from 'ng-angular-popup';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -27,7 +28,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

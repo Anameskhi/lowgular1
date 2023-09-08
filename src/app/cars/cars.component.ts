@@ -1,3 +1,4 @@
+import { NgToastService } from 'ng-angular-popup';
 import { Observable } from 'rxjs';
 import { CarsService } from './../core/services/cars.service';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +20,8 @@ export class CarsComponent implements OnInit {
 
   constructor(
     private carsSrvc: CarsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastAlert: NgToastService,
   ) { }
 
   get getModel() {
@@ -99,7 +101,7 @@ export class CarsComponent implements OnInit {
     if (this.form.invalid) return;
      
    this.carsSrvc.submit(this.form.value).subscribe(res=>{
-    
+    this.toastAlert.success({ detail: "Success Message", summary: "Form successfully created", duration: 3000 })
 
    })
     console.log(this.form.value)
