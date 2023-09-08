@@ -98,7 +98,10 @@ export class CarsComponent implements OnInit {
     this.form.markAllAsTouched()
     if (this.form.invalid) return;
      
-   
+   this.carsSrvc.submit(this.form.value).subscribe(res=>{
+    
+
+   })
     console.log(this.form.value)
     this.form.reset();
   
