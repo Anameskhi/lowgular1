@@ -1,35 +1,45 @@
 <h1 class="bold">Car Form</h1>
-<form class="example-form">
+<form [formGroup]="form" class="example-form" (submit)="submit()">
     <mat-form-field class="example-full-width">
       <mat-label>Model</mat-label>
-      <input matInput value="">
+      <input matInput value="" formControlName="model">
+      <mat-error *ngIf="getModel?.errors?.['required'] && getModel?.touched">Model is
+        required</mat-error>
     </mat-form-field><br>
   
     <mat-form-field class="example-full-width">
       <mat-label>Description</mat-label>
-      <input matInput placeholder="">
+      <input matInput placeholder="" formControlName="description">
+      <mat-error *ngIf="getDescription?.errors?.['required'] && getDescription?.touched">Description is
+        required</mat-error>
+    <mat-error *ngIf="getDescription?.errors?.['minlength'] && getDescription?.touched">Description length
+        must be more than 3 characters</mat-error>
+    <mat-error *ngIf="getDescription?.errors?.['maxlength'] && getDescription?.touched">Description length
+        must be less than 50 characters</mat-error>
     </mat-form-field><br>
 
     <mat-form-field>
         <mat-label>Brand ID</mat-label>
-        <mat-select>
-            <mat-option *ngFor="let carBrand of getCarsBrand$ | async" [value]="carBrand.name">
+        <mat-select formControlName="brandId">
+            <mat-option *ngFor="let carBrand of getCarsBrand$ | async" [value]="carBrand.name" >
                 {{ carBrand.name }}
             </mat-option>
         </mat-select>
+        <mat-error *ngIf="getbrandId?.errors?.['required'] && getbrandId?.touched">Brand ID is
+            required</mat-error>
       </mat-form-field><br>
 
-      <div *ngFor="let securityFeature of carSecurityFeatures; let i = index">
+      <div *ngFor="let securityFeature of carSecurityFeatures; let i = index" >
         <p>Security Features</p>
-        <mat-checkbox class="custom-frame" *ngFor="let carSecurity of getCarSecurityFeatures$ | async" [value]="carSecurity.name" >{{carSecurity.name}}</mat-checkbox>
+        <mat-checkbox class="custom-frame" *ngFor="let carSecurity of getCarSecurityFeatures$ | async" [value]="carSecurity.id"  (change)="handnleSecurity($event)">{{carSecurity.name}}</mat-checkbox>
       </div><br><br>
 
-      <button mat-fab color="accent" class="small-fab" (click)="addCheckbox()">
+      <button mat-fab color="accent" type="button" class="small-fab" (click)="addCheckbox()">
         <mat-icon>add</mat-icon>
       </button><br>
 
       <p>Comfort Features</p>
-      <mat-checkbox *ngFor="let carComfort of getCarComfortFeatures$ | async" [value]="carComfort.name" >{{carComfort.name}}</mat-checkbox><br><br>
+      <mat-checkbox *ngFor="let carComfort of getCarComfortFeatures$ | async" [value]="carComfort.id" (change)="handleComfort($event)" >{{carComfort.name}}</mat-checkbox><br><br>
       
       <button mat-raised-button color="primary">Submit</button>
 

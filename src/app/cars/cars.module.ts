@@ -5,7 +5,7 @@ import { CarsComponent } from './cars.component';
 import {  CarsRoutingModule } from './cars-routing.module';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,7 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatCheckboxModule,
     FormsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class CarsModule { }
