@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPseudoCheckboxModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    NgToastModule
+    NgToastModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

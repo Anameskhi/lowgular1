@@ -11,7 +11,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
   styleUrls: ['./cars.component.scss']
 })
 export class CarsComponent implements OnInit {
-  carSecurityFeatures: any[] = [{ name: 'Default Checkbox' }];;
+  carSecurityFeatures: any[] = [{ name: 'Default Radio' }];;
   isChecked: boolean = false;
   getCarsBrand$: Observable<ICarForm[]> = this.carsSrvc.getCarBrands();
   getCarSecurityFeatures$: Observable<ICarForm[]> = this.carsSrvc.getCarSecurityFeatures()
@@ -43,8 +43,8 @@ export class CarsComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(50)
       ]),
-      carSecurity: this.fb.array([]),
-      carComfort: this.fb.array([])
+      securityFeatureIds: this.fb.array([]),
+      comfortFeatureIds: this.fb.array([])
     })
 
   ngOnInit(): void {
@@ -53,14 +53,14 @@ export class CarsComponent implements OnInit {
 
   addCheckbox() {
     if (this.carSecurityFeatures.length < this.maxCheckboxes) {
-      this.carSecurityFeatures.push({ name: 'New Checkbox' }); 
+      this.carSecurityFeatures.push({ name: 'New Radio' }); 
     }
   }
 
   handnleSecurity(event: any){
 
-    const getCarSecurity = this.form.get('carSecurity') as FormArray
-    if(event.checked){
+    const getCarSecurity = this.form.get('securityFeatureIds') as FormArray
+    if(event.source.checked){
       getCarSecurity.push(new FormControl(event.source.value))
     }else{
       let i = 0
@@ -72,14 +72,15 @@ export class CarsComponent implements OnInit {
         }
       )
     }
+    console.log(event.source.checked)
     console.log(event.source.value)
     
   }
 
   handleComfort(event: any){
 
-    const getCarComfort = this.form.get('carComfort') as FormArray
-    if(event.checked){
+    const getCarComfort = this.form.get('comfortFeatureIds') as FormArray
+    if(event.source.checked){
       getCarComfort.push(new FormControl(event.source.value))
     }else{
       let i = 0
