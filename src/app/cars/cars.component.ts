@@ -1,8 +1,8 @@
+import { ICarForm } from './../core/interfaces/carForm';
 import { NgToastService } from 'ng-angular-popup';
 import { Observable } from 'rxjs';
 import { CarsService } from './../core/services/cars.service';
 import { Component, OnInit } from '@angular/core';
-import { ICarForm } from '../core/interfaces/carForm';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
@@ -100,10 +100,11 @@ export class CarsComponent implements OnInit {
     this.form.markAllAsTouched()
     if (this.form.invalid) return;
      
+    if (this.form.valid) {
    this.carsSrvc.submit(this.form.value).subscribe(res=>{
     this.toastAlert.success({ detail: "Success Message", summary: "Form successfully created", duration: 3000 })
-
    })
+  }
     console.log(this.form.value)
     this.form.reset();
   
