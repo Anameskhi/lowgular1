@@ -10,6 +10,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
+import { AllItemComponent } from '../all-item/all-item.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatIconModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MatRadioModule
+    MatRadioModule,
+    RouterModule
   ]
 })
 export class CarsModule { }

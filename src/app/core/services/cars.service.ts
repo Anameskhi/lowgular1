@@ -21,6 +21,14 @@ export class CarsService extends BaseService{
     return this.get('car-comfort-features')
   }
 
+  deleteCarForm(id: number):Observable<ICreateForm>{
+    return this.delete<ICreateForm>(`cars/${id}`)
+  }
+
+  getAllCreatedForm():Observable<ICarForm[]>{
+    return this.get('cars')
+  }
+
   submit(body: ICreateForm): Observable<ICreateForm>{
     return this.post('cars',body)
   }

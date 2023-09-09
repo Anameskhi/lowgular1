@@ -13,10 +13,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatPseudoCheckboxModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
     AppComponent,
+    
    
   ],
   imports: [
@@ -31,7 +33,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatCheckboxModule,
     ReactiveFormsModule,
     NgToastModule,
-    MatRadioModule
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

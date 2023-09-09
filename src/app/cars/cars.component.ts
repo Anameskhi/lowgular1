@@ -3,7 +3,7 @@ import { NgToastService } from 'ng-angular-popup';
 import { Observable } from 'rxjs';
 import { CarsService } from './../core/services/cars.service';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +18,7 @@ export class CarsComponent implements OnInit {
   getCarSecurityFeatures$: Observable<ICarForm[]> = this.carsSrvc.getCarSecurityFeatures()
   getCarComfortFeatures$: Observable<ICarForm[] > = this.carsSrvc.getCarComfortFeatures()
   maxCheckboxes!:number
-
+ 
   constructor(
     private carsSrvc: CarsService,
     private fb: FormBuilder,
@@ -65,12 +65,10 @@ export class CarsComponent implements OnInit {
  handleSecurity(event: any, lineIndex: number) {
   const selectedSecurityArray = this.form.get('securityFeatureIds') as FormArray;
 
-  while (selectedSecurityArray.length <= lineIndex) {
+  while (selectedSecurityArray.length  <= lineIndex) {
     selectedSecurityArray.push(this.fb.control(''));
   }
-
   selectedSecurityArray.at(lineIndex).setValue(event.source.value);
-
   console.log( lineIndex + ':', selectedSecurityArray.at(lineIndex).value);
 }
 
@@ -90,26 +88,19 @@ export class CarsComponent implements OnInit {
       )
     }
     console.log(event.source.value)
-    
   }
-  
 
   submit(){
     this.form.markAllAsTouched()
     if (this.form.invalid) return;
-     
     if (this.form.valid) {
    this.carsSrvc.submit(this.form.value).subscribe(res=>{
     this.toastAlert.success({ detail: "Success Message", summary: "Form successfully created", duration: 3000 })
    })
-   this.router.navigate(['/'])
-
+   this.router.navigate(['all-item'])
+   this.carsSrvc.getAllCreatedForm().subscribe()
   }
-    console.log(this.form.value)
-    this.form.reset();
-  
-
   }
-
-
 }
+
+
