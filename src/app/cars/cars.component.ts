@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { CarsService } from './../core/services/cars.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cars',
@@ -22,6 +23,7 @@ export class CarsComponent implements OnInit {
     private carsSrvc: CarsService,
     private fb: FormBuilder,
     private toastAlert: NgToastService,
+    private router: Router
   ) { }
 
   get getModel() {
@@ -44,7 +46,7 @@ export class CarsComponent implements OnInit {
         Validators.maxLength(50)
       ]),
       securityFeatureIds: this.fb.array([]),
-      comfortFeatureIds: this.fb.array([])
+      comfortFeatureIds: this.fb.array([]),
     })
 
   ngOnInit(): void {
@@ -52,35 +54,30 @@ export class CarsComponent implements OnInit {
   }
 
   addCheckbox() {
+    const selectedSecurityArray = this.form.get('securityFeatureIds') as FormArray;
+    selectedSecurityArray.push(this.fb.control(''));
+
     if (this.carSecurityFeatures.length < this.maxCheckboxes) {
       this.carSecurityFeatures.push({ name: 'New Radio' }); 
     }
   }
 
-  handnleSecurity(event: any){
+ handleSecurity(event: any, lineIndex: number) {
+  const selectedSecurityArray = this.form.get('securityFeatureIds') as FormArray;
 
-    const getCarSecurity = this.form.get('securityFeatureIds') as FormArray
-    if(event.source.checked){
-      getCarSecurity.push(new FormControl(event.source.value))
-    }else{
-      let i = 0
-      getCarSecurity.controls.forEach(
-        (item:any)=>{
-          if(item.value === event.source.value){
-            getCarSecurity.removeAt(item)
-          }
-        }
-      )
-    }
-    console.log(event.source.checked)
-    console.log(event.source.value)
-    
+  while (selectedSecurityArray.length <= lineIndex) {
+    selectedSecurityArray.push(this.fb.control(''));
   }
 
-  handleComfort(event: any){
+  selectedSecurityArray.at(lineIndex).setValue(event.source.value);
 
+  console.log( lineIndex + ':', selectedSecurityArray.at(lineIndex).value);
+}
+
+
+  handleComfort(event: any){
     const getCarComfort = this.form.get('comfortFeatureIds') as FormArray
-    if(event.source.checked){
+    if(event.checked){
       getCarComfort.push(new FormControl(event.source.value))
     }else{
       let i = 0
@@ -105,6 +102,8 @@ export class CarsComponent implements OnInit {
    this.carsSrvc.submit(this.form.value).subscribe(res=>{
     this.toastAlert.success({ detail: "Success Message", summary: "Form successfully created", duration: 3000 })
    })
+   this.router.navigate(['/'])
+
   }
     console.log(this.form.value)
     this.form.reset();

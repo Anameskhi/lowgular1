@@ -31,7 +31,9 @@
 
       <div *ngFor="let securityFeature of carSecurityFeatures; let i = index" >
         <p>Security Features</p>
-        <mat-radio-button    class="custom-frame" *ngFor="let carSecurity of getCarSecurityFeatures$ | async" [value]="carSecurity.id"  (change)="handnleSecurity($event)">{{carSecurity.name}}</mat-radio-button>
+        <mat-radio-group >
+        <mat-radio-button    class="custom-frame" *ngFor="let carSecurity of getCarSecurityFeatures$ | async" [value]="carSecurity.id"  (change)="handleSecurity($event,i)">{{carSecurity.name}}</mat-radio-button>
+      </mat-radio-group>
       </div><br><br>
 
       <button mat-fab color="accent" type="button" class="small-fab" (click)="addCheckbox()">
